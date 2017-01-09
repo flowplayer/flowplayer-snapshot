@@ -1,0 +1,50 @@
+
+<!doctype html>
+
+<head>
+
+   <!-- player skin -->
+   <link rel="stylesheet" type="text/css" href="//releases.flowplayer.org/6.0.5/skin/functional.css">
+
+   <!-- site specific styling -->
+   <style>
+   body { font-family: avenir, sans-serif; margin: 0 auto; padding: .6em;}
+   .flowplayer { width: 90%; margin: auto }
+
+
+   </style>
+
+   <!-- include flowplayer -->
+   <script src="//releases.flowplayer.org/6.0.5/flowplayer.min.js"></script>
+   <script src="//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js"></script>
+   <script src="/flowplayer.snapshot.js"></script>
+
+</head>
+
+<body>
+
+  <div id="player"></div>
+  <button id="snapshot">Take a snapshot</button>
+
+  <script>
+  var api = flowplayer('#player', {
+    ratio: 0.4167,
+    clip: {
+      sources: [{
+        type: 'application/x-mpegurl',
+        src: '//cdn.flowplayer.org/202777/84049-bauhaus.m3u8'
+      }, {
+        type: 'video/mp4',
+        src: '//cdn.flowplayer.org/202777/84049-bauhaus.mp4'
+      }]
+    }
+  });
+
+  document.querySelector('#snapshot').addEventListener('click', function() {
+    document.body.appendChild(flowplayer.common.createElement('h4', {}, 'Snapshot ' + Date.now()));
+    document.body.appendChild(flowplayer.common.createElement('img', { src: api.snapshot() }));
+  });
+  </script>
+
+</body>
+
